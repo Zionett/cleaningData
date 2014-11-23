@@ -5,7 +5,7 @@ This repo contains two files
 
  1. run_analysis.R
         
-        R script that merges and cleans motion sensor data
+    R script that merges and cleans motion sensor data
         
       * The "UCI HAR Dataset" folder needs to be in the R work directory
       * Run the script by sourcing it: source("run_analysis.R")
@@ -15,4 +15,4 @@ This repo contains two files
 
  2. CodeBook.md
     
-        Description of the variables in the dataset and cleaning procedures
+    Description of the variables in the dataset and cleaning procedures
