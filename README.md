@@ -15,4 +15,17 @@ This repo contains two files
 
  2. CodeBook.md
     
-    Description of the variables in the dataset and cleaning procedures
+    Description of the variables in the dataset
+    
+The data cleaning process is described as follows
+
+ 1. Read subject labels, sensor signal data, and activity labels into R with read.table for both the training and test datasets
+ 2. Column bind the subject labels and the activity labels onto the sensor signal data
+ 3. Row bind the training and test datasets together to get the main data.frame
+ 4. Read the original column (feature) names, convert them into legal R names, and assign the column names
+ 5. Select the mean and std pairs with string matching
+ 6. The activity labels are changed to descriptive names by converting the column into a factor
+ 7. The column names are cleaned up. Three consecutive dots are replaced with one. Repeating 'Body' in the names are corrected. Trailing dots are deleted.
+ 8. Auxillary data that are no longer useful are removed
+ 9. Use aggregate function to calculate the mean of each subject and each activity
+10. Write output file

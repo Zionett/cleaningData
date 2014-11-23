@@ -27,12 +27,12 @@ feature <- read.table("UCI HAR Dataset/features.txt")
 
 ## Assign column names to data
 
-colnames(data) <- c("subject-id", as.character(feature[[2]]), "activity")
+colnames(data) <- c("subject.id", make.names(as.character(feature[[2]])), "activity")
 
 ## Construct a logical vector and select the needed columns
 ## fixed = TRUE to exclude the meanFreq columns
 
-index <- grepl("mean()", colnames(data), fixed = TRUE) | grepl("std()", colnames(data))
+index <- grepl("mean..", colnames(data), fixed = TRUE) | grepl("std..", colnames(data))
 index[1] <- TRUE
 index[563] <- TRUE
 data <- data[,index]
@@ -42,14 +42,21 @@ data <- data[,index]
 act<- read.table("UCI HAR Dataset/activity_labels.txt")
 data$activity <- factor(data$activity, c(1,2,3,4,5,6), as.character(act[[2]]))
 
+## Clean up column names
+names <- colnames(data)
+names <- gsub("\\.\\.\\.", "\\.", names)
+names <- gsub("BodyBody", "Body", names)
+names <- gsub("\\.\\.$", "", names)
+colnames(data) <- names
+
 ## Remove data that are no longer useful
 
 remove(subject_test, X_test, y_test)
 remove(subject_train, X_train, y_train)
-remove(test_data, train_data, feature, act, index)
+remove(test_data, train_data, feature, act, index, names)
 
 ## Compute average for each variable, subject, and activity
-aggdata <- aggregate(data[, -c(1,68)], by = list(`subject-id` = data$`subject-id`, 
+aggdata <- aggregate(data[, -c(1,68)], by = list(subject.id = data$subject.id, 
                                         activity = data$activity), FUN = mean)
 
 write.table(aggdata, "data.txt", row.names = FALSE)
