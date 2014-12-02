@@ -40,7 +40,7 @@ data <- data[,index]
 ## Replace the activity with descriptive names using factors
 
 act<- read.table("UCI HAR Dataset/activity_labels.txt")
-data$activity <- factor(data$activity, c(1,2,3,4,5,6), as.character(act[[2]]))
+data$activity <- factor(data$activity, 1:6, as.character(act[[2]]))
 
 ## Clean up column names
 names <- colnames(data)
